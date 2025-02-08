@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trust/pages/admin_dashboard.dart';
 import 'package:trust/pages/donor_dashboard.dart';
+import 'package:trust/pages/home_page.dart';
 import 'package:trust/pages/ngo_dashboard.dart';
 import 'package:trust/pages/vendor_dashboard.dart';
 
@@ -20,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
     Widget nextPage;
     switch (selectedRole) {
       case "Donor":
-        nextPage = DonorDashboard();
+        nextPage = ChangeMakerHome();
         break;
       case "NGO":
         nextPage = NGODashboard();

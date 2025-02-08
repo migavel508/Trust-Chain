@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 
 class VendorDashboard extends StatefulWidget {
   @override
@@ -221,7 +224,8 @@ class SuccessScreen extends StatelessWidget {
   }
 }
 
-class PendingPaymentsScreen extends StatelessWidget {
+
+class PendingPaymentsScreen1 extends StatelessWidget {
   final List<String> pendingPayments = [
     "Order #123 - \$500",
     "Order #124 - \$750",
@@ -255,10 +259,160 @@ class PendingPaymentsScreen extends StatelessWidget {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+class PendingPaymentsScreenv extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Roboto',
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      ),
+      home: PendingPaymentsScreen(),
+    );
+  }
+}
+
+class PendingPaymentsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Pending Payments"),
+        backgroundColor: Colors.teal,
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF3E5F5),
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "Total Donations",
+                    style: TextStyle(fontSize: 18, color: Color.fromARGB(255, 58, 78, 6)),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    "₹1,20,000",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              "Withdraw & Refund Requests",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 123, 81, 196),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Expanded(
+              child: ListView.builder(
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 4,
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: const Color(0xFFBA68C8),
+                        child: const Icon(Icons.account_circle, color: Colors.white),
+                      ),
+                      title: Text("Request #${index + 1}"),
+                      subtitle: const Text("Pending Approval"),
+                      trailing: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 255, 106, 65),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        child: const Text("View"),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 class PaymentHistoryScreen extends StatelessWidget {
-  final List<String> paymentHistory = [
-    "Order #120 - \$300 (Completed)",
-    "Order #121 - \$450 (Completed)",
+  final List<Map<String, String>> paymentHistory = [
+    {
+      "Transaction ID": "TX2002",
+      "Donor": "Fresh Supplies Pvt Ltd",
+      "Amount": "\$3M",
+      "Status": "Payment Released",
+      "Proof of Delivery": "View Proof",
+      "Profile Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo_R_vlnUz9UhylMPCccagw4dMqhbs4UMPAA&s",
+      "pdf": "assets/qutation1.pdf"
+    },
+    {
+      "Transaction ID": "TX2001",
+      "Donor": "Global Exports Inc.",
+      "Amount": "\$1.5M",
+      "Status": "Payment Released",
+      "Proof of Delivery": "View Proof",
+      "Profile Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSw1dZIvKfWd-BXu09e91cIUHgSjhhGWdviWR3g2RAPpv7sdECzaxfI5tPN5pJgf9oRsuk&usqp=CAU",
+      "pdf" : "assets/qutation2.pdf"
+    }
   ];
 
   @override
@@ -268,23 +422,153 @@ class PaymentHistoryScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Payment History", style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Colors.teal,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView.builder(
           itemCount: paymentHistory.length,
           itemBuilder: (context, index) {
+            final transaction = paymentHistory[index];
             return Card(
               color: Colors.grey[900],
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               elevation: 5,
-              child: ListTile(
-                title: Text(paymentHistory[index], style: TextStyle(color: Colors.white)),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  children: [
+                    // Profile Image on the Left
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(transaction["Profile Image"]!),
+                    ),
+                    SizedBox(width: 16),
+                    
+                    // Transaction Details
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildDetailRow("Transaction ID:", transaction["Transaction ID"]!),
+                          _buildDetailRow("Donor:", transaction["Donor"]!),
+                          _buildDetailRow("Amount:", transaction["Amount"]!),
+                          _buildDetailRow("Status:", transaction["Status"]!),
+                          SizedBox(height: 10),
+                          GestureDetector(
+                            onTap: () {
+                           
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PdfViewerScreen(assetPath: transaction["pdf"]!),
+                                    ),
+                                  );
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.tealAccent.withOpacity(0.2),
+                              ),
+                            
+                              child: Text(
+                                transaction["Proof of Delivery"]!,
+                                style: TextStyle(
+                                  color: Colors.tealAccent,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           },
         ),
       ),
+    );
+  }
+
+  Widget _buildDetailRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: "$label ",
+              style: TextStyle(color: Colors.white70, fontWeight: FontWeight.bold),
+            ),
+            TextSpan(text: value, style: TextStyle(color: Colors.white)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+class PdfViewerScreen extends StatefulWidget {
+  final String assetPath;
+  PdfViewerScreen({required this.assetPath});
+
+  @override
+  _PdfViewerScreenState createState() => _PdfViewerScreenState();
+}
+
+class _PdfViewerScreenState extends State<PdfViewerScreen> {
+  String? localPath;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPdf();
+  }
+
+  Future<void> _loadPdf() async {
+    try {
+      final byteData = await rootBundle.load(widget.assetPath);
+      final tempDir = await getTemporaryDirectory();
+      final tempFile = File('${tempDir.path}/temp.pdf');
+
+      await tempFile.writeAsBytes(byteData.buffer.asUint8List());
+
+      setState(() {
+        localPath = tempFile.path;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error loading PDF: $e')),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Proof of Delivery", style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.teal,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      body: localPath == null
+          ? Center(child: CircularProgressIndicator())
+          : PDFView(filePath: localPath!),
     );
   }
 }

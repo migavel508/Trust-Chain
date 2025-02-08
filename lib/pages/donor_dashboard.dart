@@ -12,13 +12,15 @@ class _DonorDashboardState extends State<DonorDashboard> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text("Donar Dashboard", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+        title: Text("Donor Dashboard", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
         centerTitle: true,
         backgroundColor: Color(0xFF009688),
         elevation: 5,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       body: SingleChildScrollView(
