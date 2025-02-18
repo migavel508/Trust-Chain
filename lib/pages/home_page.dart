@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-
+import 'package:flutter/material.dart';  
+import 'explore_page.dart';
 void main() {
   runApp(ChangeMakerApp());
 }
@@ -126,6 +126,8 @@ class ChangeMakerHome extends StatelessWidget {
                       InfoCard(icon: Icons.receipt_long, label: "Get 80G tax\nbenefits"),
                     ],
                   ),
+                  
+
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {},
@@ -191,18 +193,27 @@ class ChangeMakerHome extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        selectedItemColor: Colors.purple,
-        unselectedItemColor: Colors.grey,
-        showUnselectedLabels: true,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Explore"),
-          BottomNavigationBarItem(icon: Icon(Icons.grid_view), label: "Feed"),
-          BottomNavigationBarItem(icon: Icon(Icons.health_and_safety), label: "HealthFirst"),
-          BottomNavigationBarItem(icon: Icon(Icons.monetization_on), label: "Donations"),
-        ],
-      ),
+  currentIndex: 0,
+  selectedItemColor: Colors.purple,
+  unselectedItemColor: Colors.grey,
+  showUnselectedLabels: true,
+  onTap: (index) {
+    if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ExplorePage()),
+      );
+    }
+  },
+  items: const [
+    BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+    BottomNavigationBarItem(icon: Icon(Icons.search), label: "Explore"),
+    BottomNavigationBarItem(icon: Icon(Icons.grid_view), label: "Feed"),
+    BottomNavigationBarItem(icon: Icon(Icons.health_and_safety), label: "HealthFirst"),
+    BottomNavigationBarItem(icon: Icon(Icons.monetization_on), label: "Donations"),
+  ],
+),
+
     );
   }
 }
@@ -338,5 +349,4 @@ class CampaignCard extends StatelessWidget {
       ),
     );
   }
-  
 }
