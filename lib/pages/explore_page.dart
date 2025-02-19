@@ -57,7 +57,7 @@ class ExplorePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Explore Causes"),
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.teal,
         actions: [
           IconButton(
             icon: Icon(Icons.search),

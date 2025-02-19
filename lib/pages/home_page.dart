@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';  
 import 'explore_page.dart';
 void main() {
@@ -35,7 +37,7 @@ class ChangeMakerHome extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFFBB8EFF), Color(0xFFD4BBFF)],
+                  colors: [Color.fromARGB(255, 255, 142, 142), Color.fromARGB(255, 202, 255, 187)],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -140,7 +142,8 @@ class ChangeMakerHome extends StatelessWidget {
                     ),
                     child: const Text(
                       "Make a Change →",
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 16,color: Colors.white),
+                      
                     ),
                   ),
                 ],
@@ -159,7 +162,7 @@ class ChangeMakerHome extends StatelessWidget {
                   const SizedBox(height: 8),
                   const Text(
                     "Start small and help those who most need it",
-                    style: TextStyle(color: Colors.grey),
+                    style: TextStyle(color: Color.fromARGB(255, 107, 107, 107)),
                   ),
                   const SizedBox(height: 16),
                   Row(
@@ -186,6 +189,9 @@ class ChangeMakerHome extends StatelessWidget {
                     donorsCount: "392",
                     imagePath: "assets/heart_transplant.jpg",
                   ),
+
+                  const SizedBox(height: 16),
+                  
                 ],
               ),
             ),
@@ -339,7 +345,7 @@ class CampaignCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    child: const Text("CONTRIBUTE"),
+                    child: const Text("CONTRIBUTE",style: TextStyle(color: Colors.white)),
                   ),
                 ],
               ),
